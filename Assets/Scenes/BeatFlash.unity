@@ -287,7 +287,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Beat
-    clip: {fileID: 8300000, guid: e029a346184e4d4439b270f3945677ed, type: 3}
+    clip: {fileID: 8300000, guid: ac9b7d69ef7e1fe4c9f9bb0c39bec142, type: 3}
     volume: 1
     pitch: 1
     loop: 1
