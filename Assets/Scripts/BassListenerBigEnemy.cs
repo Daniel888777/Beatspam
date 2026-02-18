@@ -7,6 +7,7 @@ public class BassListenerBigEnemy : MonoBehaviour
 {
     private AudioManager audioManager;
     private Rigidbody2D rb;
+    private GunTypeA weapon;
     private float baseScale;
     private float timeToNextBassEffect = 0f;
     private float lastBassIntensity = 0f;
@@ -16,19 +17,22 @@ public class BassListenerBigEnemy : MonoBehaviour
     private float smoothedBass;
     [SerializeField] private float smoothingSpeed = 5f;
     [SerializeField] private float beatMultiplier = 0.3f;
-    [SerializeField] private float pulseReturnSpeed = 5f;   
+    [SerializeField] private float pulseReturnSpeed = 5f;
+    [SerializeField] private GameObject gun;
+    private ProjectileSpawner projectileSpawner;
     private bool isAbove;
     private bool wasAbove;
+    private int beatCountRotation =0;
 
     void Start()
     {
         audioManager = FindFirstObjectByType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         baseScale = transform.localScale.x;
-
+        projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
+        weapon = gun.GetComponent<GunTypeA>();
     }
-
-  
+    
     void Update()
     {
         currentBass = audioManager.GetBass();
@@ -41,6 +45,7 @@ public class BassListenerBigEnemy : MonoBehaviour
             //Skip(currentBass);
             Pulse(currentBass);
             timeToNextBassEffect = Time.time + bassEffectCooldown;
+            RotationTrigger();
         }
         else
         {
@@ -75,10 +80,21 @@ public class BassListenerBigEnemy : MonoBehaviour
         {
             transform.localScale = Vector3.one * baseScale *2;
         }
-        
+        if (isAbove && !wasAbove)
+        {
+            weapon.Fire();
+        }
         lastBassIntensity = currentBass;
     }
 
+    private void RotationTrigger()
+    {
+        beatCountRotation++;
+        if (beatCountRotation % 4 == 0)
+        {
+            weapon.TurnGun();
+        }
+    }
 
 
     private void OnDrawGizmos()
