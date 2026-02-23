@@ -5,6 +5,7 @@ public class ProjectileTypeA : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float lifetime = 2f;
+    [SerializeField] private int damage = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,5 +24,18 @@ public class ProjectileTypeA : MonoBehaviour
             rb.MovePosition(nextPos);
 
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                IDamageable damageable = collision.GetComponentInParent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(damage); 
+                }
+                Destroy(gameObject); 
+            }
     }
 }

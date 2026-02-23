@@ -6,6 +6,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     Vector2 movementInput;
     Vector2 movementDirection;
+    public float turnSpeed = 200f;
+    private float turnInput;
+    private bool slowMode = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer(movementInput);
         }
 
+
+        transform.Rotate(0f, 0f, -turnInput * turnSpeed * Time.deltaTime);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -34,6 +40,26 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = input.normalized * moveSpeed * Time.deltaTime;
 
         transform.position += new Vector3(movement.x, movement.y, 0f);
+    }
+
+    public void OnTurn(InputAction.CallbackContext context)
+    {
+        turnInput = context.ReadValue<float>();
+    }
+
+    public void OnSlowMode(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            slowMode = true;
+            moveSpeed = 2f;
+        }
+
+        if (context.canceled)
+        {
+            slowMode = false;
+            moveSpeed = 5f;
+        }
     }
 
 }
