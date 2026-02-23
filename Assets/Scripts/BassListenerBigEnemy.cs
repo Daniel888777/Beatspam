@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 public class BassListenerBigEnemy : MonoBehaviour
 {
     private AudioManager audioManager;
+    private TurnAndCharge turnAndCharge;
     private Rigidbody2D rb;
     private GunTypeA weapon;
     private float baseScale;
@@ -19,17 +20,16 @@ public class BassListenerBigEnemy : MonoBehaviour
     [SerializeField] private float beatMultiplier = 0.3f;
     [SerializeField] private float pulseReturnSpeed = 5f;
     [SerializeField] private GameObject gun;
-    private ProjectileSpawner projectileSpawner;
     private bool isAbove;
     private bool wasAbove;
     private int beatCountRotation =0;
 
     void Start()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = FindFirstObjectByType<AudioManager>();   
+        turnAndCharge = GetComponent<TurnAndCharge>();
         rb = GetComponent<Rigidbody2D>();
         baseScale = transform.localScale.x;
-        projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
         weapon = gun.GetComponent<GunTypeA>();
     }
     
@@ -83,6 +83,7 @@ public class BassListenerBigEnemy : MonoBehaviour
         if (isAbove && !wasAbove)
         {
             weapon.Fire();
+            turnAndCharge.TurnTowardsPlayer();
         }
         lastBassIntensity = currentBass;
     }
