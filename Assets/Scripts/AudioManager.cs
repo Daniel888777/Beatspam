@@ -6,7 +6,8 @@ public class AudioManager : MonoBehaviour
 {
   
     public Sound[] sounds;
-    
+    private string currentMusic;
+
     void Awake()
     {
         foreach (Sound s in sounds)
@@ -19,33 +20,53 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Play("Beat");
-    }
+    //void Start()
+    //{
+    //    Play("Beat");
+    //}
 
     public void Play(string name)
     {
+        currentMusic = name;
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
+            
         }
         s.source.Play();
     }
 
+    //public float GetBass()
+    //{
+    //    float[] spectrum = new float[1024];
+    //    AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
+    //    float bass = 0f;
+
+    //    for (int i = 0; i < 20; i++)
+    //    {
+    //        bass += spectrum[i];
+    //    }
+
+    //    return bass;
+    //}
+
     public float GetBass()
     {
         float[] spectrum = new float[1024];
-        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
-        float bass = 0f;
 
+        Sound music = Array.Find(sounds, s => s.name == currentMusic);
+        music.source.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
+
+        float bass = 0f;
         for (int i = 0; i < 20; i++)
         {
             bass += spectrum[i];
         }
-        
+
         return bass;
     }
+
+
 }

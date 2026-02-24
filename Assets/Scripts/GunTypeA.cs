@@ -19,7 +19,7 @@ public class GunTypeA : MonoBehaviour
     }
     public void TurnGun()
     {
-        transform.Rotate(0f, 0f, 36f);
+        transform.Rotate(0f, 0f, 37f);
     }
     
     public void Fire()
