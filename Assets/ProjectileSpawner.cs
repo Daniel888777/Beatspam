@@ -3,6 +3,7 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject dichargeBlastPrefab;
 
 
 
@@ -13,11 +14,9 @@ public class ProjectileSpawner : MonoBehaviour
         {
             float angle = i * angleStep;
 
-            Vector3 shotDirection =
-                Quaternion.Euler(0f, 0f, angle) * direction;
+            Vector3 shotDirection = Quaternion.Euler(0f, 0f, angle) * direction;
 
-            GameObject projectile =
-                Instantiate(projectilePrefab, position, Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab, position, Quaternion.identity);
 
             projectile.transform.up = shotDirection;
         
@@ -26,14 +25,12 @@ public class ProjectileSpawner : MonoBehaviour
 
 
     }
-    void Start()
+    
+    public void DischargeBlast(Vector3 position, Vector3 direction)
     {
-        
-    }
+        Vector3 shotDirection = direction.normalized;
+        GameObject dischargeBlast = Instantiate(dichargeBlastPrefab, position, Quaternion.identity);
+        dischargeBlast.transform.up = shotDirection;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

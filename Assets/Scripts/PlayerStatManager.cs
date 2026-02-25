@@ -4,7 +4,7 @@ using TMPro;
 public class PlayerStatManager : MonoBehaviour, IDamageable
 {
     private AudioManager audioManager;
-    [SerializeField]private int maxHealth = 10;
+    [SerializeField]private int maxHealth = 20;
     private int health;
     [SerializeField]private TextMeshProUGUI scoreText;
     [SerializeField]private TextMeshProUGUI healthText;

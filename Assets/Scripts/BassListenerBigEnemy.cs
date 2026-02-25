@@ -20,11 +20,11 @@ public class BassListenerBigEnemy : MonoBehaviour
     [SerializeField] private float beatMultiplier = 0.3f;
     [SerializeField] private float pulseReturnSpeed = 5f;
     [SerializeField] private GameObject gun;
-    [SerializeField] private ParticleSystem chargerEffect;
+    //[SerializeField] private ParticleSystem chargerEffect;
     private bool isAbove;
     private bool wasAbove;
-    private bool canCharge = false;
-    private bool isCharging = false;
+    //private bool canCharge = false;
+    //private bool isCharging = false;
     private int beatCountRotation =0;
     
 
@@ -88,6 +88,7 @@ public class BassListenerBigEnemy : MonoBehaviour
         {
             weapon.Fire();
             turnAndCharge.TurnTowardsPlayer();
+            turnAndCharge.Charging();
         }
         lastBassIntensity = currentBass;
     }
@@ -101,10 +102,7 @@ public class BassListenerBigEnemy : MonoBehaviour
         }
     }
 
-   public void EnableCharge()
-    {
-        canCharge = true;
-    }
+
 
     private void OnDrawGizmos()
     {

@@ -4,10 +4,22 @@ using UnityEngine;
 public class TurnAndCharge : MonoBehaviour
 {
     private Transform playerPosition;
+    [SerializeField] private ParticleSystem chargerEffect;
+    private AudioManager audioManager;
+    private ProjectileSpawner projectileSpawner;
+    private bool canCharge = false;
+    private bool isCharging = false;
+    private float chargeLimit = 2000f;
+    private float currentCharge = 0f;
+    private float chargeCooldown = 5f;
+    private float timeToNextCharge = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerPosition = FindFirstObjectByType<PlayerStatManager>().transform;
+        audioManager = FindFirstObjectByType<AudioManager>();
+        projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
     }
 
     public void TurnTowardsPlayer()
@@ -21,6 +33,51 @@ public class TurnAndCharge : MonoBehaviour
             //if (Mathf.Abs(transform.rotation.eulerAngles.z - angle) <= 0.5f)
             //{ }
         }
+    }
+
+
+    public void EnableCharge()
+    {
+        canCharge = true;
+    }
+
+    public void Charging() { 
+        if (Time.time < timeToNextCharge)
+        {
+            return;
+        }
+        if (canCharge)
+        {   
+            isCharging = true;
+            currentCharge += 50f;
+            audioManager.PlayChargeSound("EnemyCharging");
+
+
+            if (!chargerEffect.isPlaying)
+            {
+                chargerEffect.Play();
+            }
+
+        }
+        if (currentCharge >= chargeLimit)
+        {
+            //Trigger the charge attack here
+            Debug.Log("Charge Attack Triggered!");
+            isCharging = false;
+            currentCharge = 0f;
+            chargerEffect.Stop();
+            audioManager.StopChargeSound("EnemyCharging");
+
+
+            timeToNextCharge = Time.time + chargeCooldown;
+            Discharge();
+            }
+    }
+
+
+    private void Discharge()
+    {
+        projectileSpawner.DischargeBlast(transform.position, transform.up);
     }
 
 }

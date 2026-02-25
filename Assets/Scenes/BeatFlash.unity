@@ -1086,6 +1086,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: EnemyCharging
+    clip: {fileID: 8300000, guid: e96a84f66ed7d4eaabbfb352f63add7e, type: 3}
+    volume: 0.405
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!4 &861104817
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,6 +1345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 764997529420015180, guid: e2c7b205c03f2e745b17850ab34c41a6, type: 3}
+  dichargeBlastPrefab: {fileID: 6483480233611730398, guid: 4032fffcfecd77e469935970e8298541, type: 3}
 --- !u!4 &1063430323
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,9 +1458,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 10
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1468,7 +1475,7 @@ GameObject:
   - component: {fileID: 1330301456}
   - component: {fileID: 1330301455}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1583,7 +1590,6 @@ MonoBehaviour:
   beatMultiplier: 1
   pulseReturnSpeed: 5
   gun: {fileID: 405344658}
-  chargerEffect: {fileID: 0}
 --- !u!4 &1345267821
 Transform:
   m_ObjectHideFlags: 0
@@ -1598,6 +1604,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1899945778}
+  - {fileID: 2139227326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!50 &1345267822
@@ -1639,6 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07613febb67180a43a30fb51737395ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chargerEffect: {fileID: 2139227325}
 --- !u!95 &1345267824
 Animator:
   serializedVersion: 7
@@ -1679,8 +1687,8 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1345267820}
-          m_TargetAssemblyTypeName: BassListenerBigEnemy, Assembly-CSharp
+        - m_Target: {fileID: 1345267823}
+          m_TargetAssemblyTypeName: TurnAndCharge, Assembly-CSharp
           m_MethodName: EnableCharge
           m_Mode: 1
           m_Arguments:
@@ -2235,7 +2243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0d3414d7346ba4b9cd0088303d1160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   scoreText: {fileID: 1785309826}
   healthText: {fileID: 1391717433}
 --- !u!114 &1602433539
@@ -2798,12 +2806,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660350419}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.27, y: 0.938, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.001999855, y: 0, z: 0.9420001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2139227326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785309824
 GameObject:
@@ -3152,6 +3160,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: 7f3b305abdd7aa1419d31a9a9d5ba2c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3221,7 +3230,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -3458,7 +3467,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.07
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3835,8 +3844,8 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
-    angle: 16.17
+    type: 12
+    angle: 1.09
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -3922,7 +3931,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.05
+      value: 0.31
       mode: 0
       spread: 0
       speed:
@@ -4147,7 +4156,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -4158,22 +4167,22 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
+          value: 1
+          inSlope: -1.0070378
+          outSlope: -1.0070378
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
-          tangentMode: 0
+          time: 0.9930115
+          value: 0
+          inSlope: -1.0070378
+          outSlope: -1.0070378
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -7105,7 +7114,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
@@ -7935,13 +7944,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139227323}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.272, y: 1.88, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0.594, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1660350421}
+  m_Father: {fileID: 1345267821}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: -90}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7956,5 +7966,3 @@ SceneRoots:
   - {fileID: 418768001}
   - {fileID: 2008417899}
   - {fileID: 1481290595}
-  - {fileID: 2139227326}
-  - {fileID: 1660350421}
