@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 783145164758759405}
   - component: {fileID: 571646682333193990}
   - component: {fileID: 6105100781702832463}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   lifetime: 4
+  damage: 1
 --- !u!58 &6105100781702832463
 CircleCollider2D:
   m_ObjectHideFlags: 0

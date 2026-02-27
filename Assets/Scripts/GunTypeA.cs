@@ -3,7 +3,7 @@ using UnityEngine;
 public class GunTypeA : MonoBehaviour
 {
     private ProjectileSpawner projectileSpawner;
-    private int shotCount = 8;
+    [SerializeField]private int shotCount = 8;
     [SerializeField] private Transform enemyPosition;
 
     void Start()
@@ -14,7 +14,11 @@ public class GunTypeA : MonoBehaviour
 
     private void Update()
     {
-        transform.position = enemyPosition.position;
+        if (enemyPosition != null)
+        {
+            transform.position = enemyPosition.position;
+        }
+        
 
     }
     public void TurnGun()

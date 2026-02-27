@@ -5,7 +5,7 @@ public class ProjectileTypeA : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float lifetime = 2f;
-    [SerializeField] private int damage = 1;
+    [SerializeField] private float damage = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

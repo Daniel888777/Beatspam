@@ -55,7 +55,7 @@ public class BassListenerBigEnemy : MonoBehaviour
         {
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * baseScale, Time.deltaTime * pulseReturnSpeed);
         }
-        Debug.Log("Bass: " + currentBass);
+        //Debug.Log("Bass: " + currentBass);
         wasAbove = isAbove;
     }
 

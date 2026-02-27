@@ -4,8 +4,8 @@ using TMPro;
 public class PlayerStatManager : MonoBehaviour, IDamageable
 {
     private AudioManager audioManager;
-    [SerializeField]private int maxHealth = 20;
-    private int health;
+    [SerializeField]private float maxHealth = 20f;
+    private float health;
     [SerializeField]private TextMeshProUGUI scoreText;
     [SerializeField]private TextMeshProUGUI healthText;
     private HealthBar healthBar;
@@ -31,11 +31,13 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     {
         score += 5;
         beatBar.IncreaseBeatEnergy();
+        
 
         scoreText.text = "Score: " + score;
+
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         healthBar.setCurrentHealth(health);

@@ -13,7 +13,6 @@ public class BassListenerPlayer : MonoBehaviour
     [SerializeField] private float smoothingSpeed = 5f;
     [SerializeField] private float beatMultiplier = 0.3f;
     [SerializeField] private float pulseReturnSpeed = 5f;
-    [SerializeField] private GameObject gun;
     private bool isAbove;
     private bool wasAbove;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -50,7 +50,7 @@ public class TurnAndCharge : MonoBehaviour
         {   
             isCharging = true;
             currentCharge += 50f;
-            audioManager.PlayChargeSound("EnemyCharging");
+            ChargeSound();
 
 
             if (!chargerEffect.isPlaying)
@@ -66,18 +66,28 @@ public class TurnAndCharge : MonoBehaviour
             isCharging = false;
             currentCharge = 0f;
             chargerEffect.Stop();
-            audioManager.StopChargeSound("EnemyCharging");
+            NoChargeSound();
 
 
             timeToNextCharge = Time.time + chargeCooldown;
             Discharge();
-            }
+        }
     }
 
 
     private void Discharge()
     {
-        projectileSpawner.DischargeBlast(transform.position, transform.up);
+        projectileSpawner.DischargeBlastEnemy(transform.position, transform.up);
+    }
+
+    public void ChargeSound() 
+    { 
+        audioManager.PlayChargeSound("EnemyCharging");
+    }
+
+    public void NoChargeSound()
+    {
+        audioManager.StopChargeSound("EnemyCharging");
     }
 
 }
