@@ -97,7 +97,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SlowDown",
+                    "name": "SpeedUp",
                     "type": "Button",
                     "id": "e286bf43-9f2c-4f14-a65d-73a57729d60b",
                     "expectedControlType": "",
@@ -532,7 +532,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "SlowDown",
+                    "action": "SpeedUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -22,6 +22,8 @@ public class TurnAndCharge : MonoBehaviour
         projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
     }
 
+
+
     public void TurnTowardsPlayer()
     {
         if (playerPosition != null)

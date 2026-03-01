@@ -26,6 +26,8 @@ public class BassListenerPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameStateManager.Instance.currentState != GameStates.Combat)
+            return;
         currentBass = audioManager.GetBass();
         smoothedBass = Mathf.Lerp(smoothedBass, currentBass, Time.deltaTime * smoothingSpeed);
 

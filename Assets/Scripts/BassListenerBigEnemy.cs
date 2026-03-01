@@ -35,10 +35,13 @@ public class BassListenerBigEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         baseScale = transform.localScale.x;
         weapon = gun.GetComponent<GunTypeA>();
+
     }
     
     void Update()
     {
+        if (GameStateManager.Instance.currentState != GameStates.Combat)
+            return;
         currentBass = audioManager.GetBass();
         smoothedBass = Mathf.Lerp(smoothedBass, currentBass, Time.deltaTime * smoothingSpeed);
         
@@ -89,6 +92,7 @@ public class BassListenerBigEnemy : MonoBehaviour
             weapon.Fire();
             turnAndCharge.TurnTowardsPlayer();
             turnAndCharge.Charging();
+            turnAndCharge.EnableCharge();
         }
         lastBassIntensity = currentBass;
     }

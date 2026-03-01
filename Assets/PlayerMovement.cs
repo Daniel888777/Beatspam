@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 1.5f;
     Vector2 movementInput;
     Vector2 movementDirection;
     public float turnSpeed = 200f;
     private float turnInput;
-    private bool slowMode = false;
+    private bool speedMode = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,18 +47,18 @@ public class PlayerMovement : MonoBehaviour
         turnInput = context.ReadValue<float>();
     }
 
-    public void OnSlowMode(InputAction.CallbackContext context)
+    public void OnSpeedMode(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            slowMode = true;
-            moveSpeed = 2f;
+            speedMode = true;
+            moveSpeed = 3f;
         }
 
         if (context.canceled)
         {
-            slowMode = false;
-            moveSpeed = 5f;
+            speedMode = false;
+            moveSpeed = 1.5f;
         }
     }
 

@@ -7,7 +7,7 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     [SerializeField]private float maxHealth = 20f;
     private float health;
     [SerializeField]private TextMeshProUGUI scoreText;
-    [SerializeField]private TextMeshProUGUI healthText;
+    //[SerializeField]private TextMeshProUGUI healthText;
     private HealthBar healthBar;
     private BeatBar beatBar;
     private int beatCount;
@@ -42,7 +42,7 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
         health -= damage;
         healthBar.setCurrentHealth(health);
         score -= 1000;
-        healthText.text = "Health: " + health;
+        //healthText.text = "Health: " + health;
         if (health <= 0)
         {
             Die();
