@@ -6,6 +6,7 @@ public class GameStateManager : MonoBehaviour
     public GameStates currentState;
 
     [SerializeField] private PlayableDirector entranceTimeline;
+    [SerializeField] private PlayableDirector countDownTimeline;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Dialogue dialogueManager;
     public static GameStateManager Instance { get; private set; }
@@ -55,6 +56,12 @@ public class GameStateManager : MonoBehaviour
     }
     
     public void OnDialogueFinished()
+    {
+        countDownTimeline.Play();
+        //SetState(GameStates.Combat);
+    }
+
+    public void OnCountDownFinished()
     {
         SetState(GameStates.Combat);
     }

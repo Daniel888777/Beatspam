@@ -5,6 +5,7 @@ public class TurnAndCharge : MonoBehaviour
 {
     private Transform playerPosition;
     [SerializeField] private ParticleSystem chargerEffect;
+    [SerializeField] private ParticleSystem muzzleFlash;
     private AudioManager audioManager;
     private ProjectileSpawner projectileSpawner;
     private bool canCharge = false;
@@ -80,6 +81,7 @@ public class TurnAndCharge : MonoBehaviour
     private void Discharge()
     {
         projectileSpawner.DischargeBlastEnemy(transform.position, transform.up);
+        muzzleFlash.Play();
     }
 
     public void ChargeSound() 

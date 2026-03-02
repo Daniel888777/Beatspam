@@ -104,7 +104,7 @@ public class Dialogue : MonoBehaviour
         //playerImage.gameObject.SetActive(false);
         //enemyImage.gameObject.SetActive(false);
         //gameObject.SetActive(false);
-        GameStateManager.Instance.SetState(GameStates.Combat);
+        GameStateManager.Instance.OnDialogueFinished();
     }
 
 

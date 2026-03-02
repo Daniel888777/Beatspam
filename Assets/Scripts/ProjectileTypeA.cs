@@ -33,7 +33,8 @@ public class ProjectileTypeA : MonoBehaviour
                 IDamageable damageable = collision.GetComponentInParent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(damage); 
+                    damageable.TakeDamage(damage);
+                    damageable.HitEffect(transform.position);
                 }
                 Destroy(gameObject); 
             }

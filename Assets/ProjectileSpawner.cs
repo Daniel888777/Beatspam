@@ -4,6 +4,7 @@ public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private GameObject dichargeBlastPrefab;
+    [SerializeField] private GameObject normalHitEffect;
     [SerializeField] private float laserRange = 100f;
     [SerializeField] private float laserDamage = 100f;
     [SerializeField] private LineRenderer laserRanderer;
@@ -31,6 +32,11 @@ public class ProjectileSpawner : MonoBehaviour
         }
     }
 
+    public void HitByProjectile(Vector3 position)
+    {
+        GameObject projectileExp = Instantiate(normalHitEffect, position, Quaternion.identity);
+        Destroy(projectileExp, 1f);
+    }
     public void DischargeBlastEnemy(Vector3 position, Vector3 direction)
     {
         Vector3 shotDirection = direction.normalized;

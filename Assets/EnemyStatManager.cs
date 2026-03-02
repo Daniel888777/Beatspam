@@ -37,6 +37,11 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
         StartCoroutine(DeathEffect());
     }
 
+    public void HitEffect(Vector3 position)
+    {
+        
+    }
+
 
     private System.Collections.IEnumerator DeathEffect()
     {
