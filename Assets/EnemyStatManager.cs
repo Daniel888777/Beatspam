@@ -33,7 +33,7 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        turnAndCharge.NoChargeSound();
+        
         StartCoroutine(DeathEffect());
     }
 
@@ -47,6 +47,9 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
     {
         // Add any death animation or effect here
         yield return new WaitForSeconds(0.5f); // Wait for the effect to finish
+        GameStateManager.Instance.OnPlayerVictory();
+        turnAndCharge.NoChargeSound();
         Destroy(gameObject);
+
     }
 }

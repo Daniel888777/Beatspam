@@ -15,6 +15,9 @@ public class ProjectileSpawner : MonoBehaviour
     void Start()
     {
         hittables = LayerMask.GetMask("EnemyLayer");
+        //laserRanderer.SetPosition(0, Vector3.zero);
+        //laserRanderer.SetPosition(1, Vector3.zero);
+        laserRanderer.enabled = false;
     }
 
     public void RingShot(Vector3 position, Vector3 direction, int projectileCount)
@@ -47,7 +50,9 @@ public class ProjectileSpawner : MonoBehaviour
 
     public void LaserBeam(Vector3 position, Vector3 direction)
     {
+
         RaycastHit2D hit = Physics2D.Raycast(position, direction, laserRange, hittables);
+        laserRanderer.enabled = true;
         if (hit.collider != null)
         {
             EnemyStatManager target = hit.transform.GetComponent<EnemyStatManager>();
@@ -68,8 +73,9 @@ public class ProjectileSpawner : MonoBehaviour
 
     public void StopLaserBeam()
     {
-        laserRanderer.SetPosition(0, Vector3.zero);
-        laserRanderer.SetPosition(1, Vector3.zero);
+        //laserRanderer.SetPosition(0, Vector3.zero);
+        //laserRanderer.SetPosition(1, Vector3.zero);
+        laserRanderer.enabled = false;
 
     }
 }

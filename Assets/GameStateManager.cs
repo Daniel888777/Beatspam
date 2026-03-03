@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private PlayableDirector countDownTimeline;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Dialogue dialogueManager;
+    [SerializeField] private string nextSceneName;
     public static GameStateManager Instance { get; private set; }
 
     void Awake()
@@ -47,6 +50,10 @@ public class GameStateManager : MonoBehaviour
                 audioManager.Play("Beat");
                 dialogueManager.Deactivate();
                 break;
+
+            case GameStates.Victory:
+                LoadNextScene();
+                break;
         }
     }
 
@@ -66,5 +73,15 @@ public class GameStateManager : MonoBehaviour
         SetState(GameStates.Combat);
     }
 
+    public void OnPlayerVictory()
+    {
+        SetState(GameStates.Victory);
+    }
 
+    //--------------------------------//
+    IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("NextSceneName");
+    }
 }
