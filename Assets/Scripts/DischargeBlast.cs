@@ -30,7 +30,7 @@ public class DischargeBlast : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            IDamageable damageable = collision.GetComponentInParent<IDamageable>();
+            IDamageable damageable = collision.GetComponent<IDamageable>();
             if (damageable != null)
             {
                 damageable.TakeDamage(damage);

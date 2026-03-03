@@ -6,15 +6,14 @@ public class ProjectileTypeA : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private float damage = 1;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, lifetime); // Destroy the projectile after 5 seconds to prevent memory leaks
+        Destroy(gameObject, lifetime); 
 
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (rb != null)
@@ -30,7 +29,7 @@ public class ProjectileTypeA : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                IDamageable damageable = collision.GetComponentInParent<IDamageable>();
+                IDamageable damageable = collision.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(damage);

@@ -8,7 +8,8 @@ public class BassListenerBigEnemy : MonoBehaviour
     private AudioManager audioManager;
     private TurnAndCharge turnAndCharge;
     private Rigidbody2D rb;
-    private GunTypeA weapon;
+    private EnemyGun weapon;
+    private GameObject player;
     private float baseScale;
     private float timeToNextBassEffect = 0f;
     private float lastBassIntensity = 0f;
@@ -26,7 +27,16 @@ public class BassListenerBigEnemy : MonoBehaviour
     //private bool canCharge = false;
     //private bool isCharging = false;
     private int beatCountRotation =0;
-    
+
+    [Header("Enemy Types")]
+    [SerializeField] private bool enemyTypeA;
+    [SerializeField] private bool enemyTypeB;
+    [SerializeField] private bool enemyTypeC;
+
+
+
+
+
 
     void Start()
     {
@@ -34,8 +44,8 @@ public class BassListenerBigEnemy : MonoBehaviour
         turnAndCharge = GetComponent<TurnAndCharge>();
         rb = GetComponent<Rigidbody2D>();
         baseScale = transform.localScale.x;
-        weapon = gun.GetComponent<GunTypeA>();
-
+        weapon = gun.GetComponent<EnemyGun>();
+        player = FindFirstObjectByType<PlayerStatManager>().gameObject;
     }
     
     void Update()

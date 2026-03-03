@@ -68,7 +68,7 @@ public class AudioManager : MonoBehaviour
         return bass;
     }
 
-    public void PlayChargeSound(string name)
+    public void PlaySound(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
@@ -84,7 +84,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopChargeSound(string name)
+    public void StopSound(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)

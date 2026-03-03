@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class GunTypeA : MonoBehaviour
+public class EnemyGun : MonoBehaviour
 {
     private ProjectileSpawner projectileSpawner;
     [SerializeField]private int shotCount = 8;
     [SerializeField] private Transform enemyPosition;
+    [Header("Enemy Types")]
+    [SerializeField] private bool enemyTypeA;
+    [SerializeField] private bool enemyTypeB;
+    [SerializeField] private bool enemyTypeC;
 
     void Start()
     {

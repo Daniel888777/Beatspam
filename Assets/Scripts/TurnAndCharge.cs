@@ -4,8 +4,12 @@ using UnityEngine;
 public class TurnAndCharge : MonoBehaviour
 {
     private Transform playerPosition;
+    [Header("Special Charge Stuff")]
     [SerializeField] private ParticleSystem chargerEffect;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private Transform rocketLauncher1;
+    [SerializeField] private Transform rocketLauncher2;
+    
     private AudioManager audioManager;
     private ProjectileSpawner projectileSpawner;
     private bool canCharge = false;
@@ -14,6 +18,11 @@ public class TurnAndCharge : MonoBehaviour
     private float currentCharge = 0f;
     private float chargeCooldown = 5f;
     private float timeToNextCharge = 0f;
+
+    [Header("Enemy Types")]
+    [SerializeField] private bool enemyTypeA;
+    [SerializeField] private bool enemyTypeB;
+    [SerializeField] private bool enemyTypeC;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +54,7 @@ public class TurnAndCharge : MonoBehaviour
     }
 
     public void Charging() { 
-        if (Time.time < timeToNextCharge)
+        if (Time.time < timeToNextCharge )
         {
             return;
         }
@@ -80,18 +89,27 @@ public class TurnAndCharge : MonoBehaviour
 
     private void Discharge()
     {
-        projectileSpawner.DischargeBlastEnemy(transform.position, transform.up);
-        muzzleFlash.Play();
+        if (enemyTypeA)
+        {
+            projectileSpawner.DischargeBlastEnemy(transform.position, transform.up);
+            muzzleFlash.Play();
+        }
+        else if (enemyTypeB) 
+        {
+            Vector3 dir1 = Quaternion.Euler(0, 0, 60f) * transform.up;
+            Vector3 dir2 = Quaternion.Euler(0, 0, -60f) * transform.up;
+            projectileSpawner.ShootMissle(rocketLauncher1.position, rocketLauncher2.position, transform.up + dir1, transform.up + dir2);
+        }
     }
 
     public void ChargeSound() 
     { 
-        audioManager.PlayChargeSound("EnemyCharging");
+        audioManager.PlaySound("EnemyCharging");
     }
 
     public void NoChargeSound()
     {
-        audioManager.StopChargeSound("EnemyCharging");
+        audioManager.StopSound("EnemyCharging");
     }
 
 }

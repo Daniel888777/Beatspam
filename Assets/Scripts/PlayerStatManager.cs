@@ -12,7 +12,6 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     private BeatBar beatBar;
     private ProjectileSpawner projectileSpawner;
     [SerializeField]private GameObject shieldEffect;
-    private int beatCount;
     private int score;
     private bool shieldHasEnergy = true;
     private float shieldDuration = 2f;
@@ -20,11 +19,11 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        scoreText.text = "Score: " + score;    
         shieldEffect.SetActive(false);
         projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
         healthBar = FindFirstObjectByType<HealthBar>();
         beatBar = FindFirstObjectByType<BeatBar>();
-        beatCount = 0;
         score = 0;
     }
 
@@ -95,7 +94,8 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        
+
+        projectileSpawner.StopLaserBeam();
         Destroy(gameObject);
     }
 }

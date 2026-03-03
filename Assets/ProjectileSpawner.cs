@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject projectilePrefabA;
+    [SerializeField] private GameObject projectilePrefabB;
     [SerializeField] private GameObject dichargeBlastPrefab;
+    [SerializeField] private GameObject misslePrefab;
+
     [SerializeField] private GameObject normalHitEffect;
     [SerializeField] private float laserRange = 100f;
     [SerializeField] private float laserDamage = 100f;
     [SerializeField] private LineRenderer laserRanderer;
     private LayerMask hittables;
+
+    [Header("Enemy Types")]
+    [SerializeField] private bool enemyTypeA;
+    [SerializeField] private bool enemyTypeB;
+    [SerializeField] private bool enemyTypeC;
+    private AudioManager audioManager;
 
 
 
@@ -18,6 +27,7 @@ public class ProjectileSpawner : MonoBehaviour
         //laserRanderer.SetPosition(0, Vector3.zero);
         //laserRanderer.SetPosition(1, Vector3.zero);
         laserRanderer.enabled = false;
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     public void RingShot(Vector3 position, Vector3 direction, int projectileCount)
@@ -28,11 +38,27 @@ public class ProjectileSpawner : MonoBehaviour
             float angle = i * angleStep;
 
             Vector3 shotDirection = Quaternion.Euler(0f, 0f, angle) * direction;
-
-            GameObject projectile = Instantiate(projectilePrefab, position, Quaternion.identity);
-
-            projectile.transform.up = shotDirection;
+            if (enemyTypeA)
+            {
+                GameObject projectile = Instantiate(projectilePrefabA, position, Quaternion.identity);
+                projectile.transform.up = shotDirection;
+            }
+            else if (enemyTypeB)
+            {
+                GameObject projectile = Instantiate(projectilePrefabB, position, Quaternion.identity);
+                projectile.transform.up = shotDirection;
+            }
         }
+    }
+
+
+    public void ShootMissle(Vector3 position1, Vector3 position2, Vector3 direction1, Vector3 direction2) 
+    {
+        GameObject missle = Instantiate(misslePrefab, position1, Quaternion.identity);
+        missle.transform.up = direction1;
+        GameObject missle2 = Instantiate(misslePrefab, position2, Quaternion.identity);
+        missle2.transform.up = direction2;
+
     }
 
     public void HitByProjectile(Vector3 position)
@@ -69,13 +95,17 @@ public class ProjectileSpawner : MonoBehaviour
             laserRanderer.SetPosition(0, position);
             laserRanderer.SetPosition(1, position + direction.normalized * laserRange);
         }
+        audioManager.PlaySound("LaserBeam");
     }
+
+
 
     public void StopLaserBeam()
     {
         //laserRanderer.SetPosition(0, Vector3.zero);
         //laserRanderer.SetPosition(1, Vector3.zero);
         laserRanderer.enabled = false;
+        audioManager.StopSound("LaserBeam");
 
     }
 }

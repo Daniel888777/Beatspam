@@ -16,15 +16,7 @@ public class GameStateManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     void Start()
@@ -52,7 +44,7 @@ public class GameStateManager : MonoBehaviour
                 break;
 
             case GameStates.Victory:
-                LoadNextScene();
+                StartCoroutine(LoadNextScene());
                 break;
         }
     }
@@ -82,6 +74,6 @@ public class GameStateManager : MonoBehaviour
     IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("NextSceneName");
+        SceneManager.LoadScene(nextSceneName);
     }
 }

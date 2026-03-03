@@ -11,7 +11,6 @@ public class Dialogue : MonoBehaviour
     public string[] sentences;
     [SerializeField] private float typingSpeed = 0.05f;
     private int index;
-    private bool closing = false;
     [SerializeField] private UnityEngine.UI.Image playerImage;
     [SerializeField] private UnityEngine.UI.Image enemyImage;
     
@@ -27,6 +26,7 @@ public class Dialogue : MonoBehaviour
         
         playerImage.gameObject.SetActive(true);
         enemyImage.gameObject.SetActive(false);
+        dialogueText.color = Color.blue;
         dialogueText.text = "";
         StartDialogue();
     }
@@ -49,7 +49,7 @@ public class Dialogue : MonoBehaviour
 
         if (index == sentences.Length - 1 && dialogueText.text == sentences[index])
         {
-            closing = true;
+            
             StartCoroutine(CloseDialogue());
         }
 
