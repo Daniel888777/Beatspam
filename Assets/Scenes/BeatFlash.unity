@@ -1198,6 +1198,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: LaserBeam
+    clip: {fileID: 8300000, guid: a9e3fee688cf000499bded40dd54ff48, type: 3}
+    volume: 0.405
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!4 &861104817
 Transform:
   m_ObjectHideFlags: 0
@@ -1454,12 +1460,12 @@ MonoBehaviour:
   projectilePrefabA: {fileID: 100000, guid: bfe0ba4acc768a5448d46a6c63d8106a, type: 3}
   projectilePrefabB: {fileID: 764997529420015180, guid: e2c7b205c03f2e745b17850ab34c41a6, type: 3}
   dichargeBlastPrefab: {fileID: 6483480233611730398, guid: 4032fffcfecd77e469935970e8298541, type: 3}
-  misslePrefab: {fileID: 0}
+  misslePrefab: {fileID: 2596958319063558647, guid: 57cf333a8a0f13044849768d460f2b10, type: 3}
   normalHitEffect: {fileID: 100002, guid: cafecd3fc3b761c45bb1553f35cf5c96, type: 3}
   laserRange: 1000
   laserDamage: 100
   laserRanderer: {fileID: 1063430324}
-  enemyTypeA: 0
+  enemyTypeA: 1
   enemyTypeB: 0
   enemyTypeC: 0
 --- !u!4 &1063430323
