@@ -6,6 +6,7 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField] private GameObject projectilePrefabB;
     [SerializeField] private GameObject dichargeBlastPrefab;
     [SerializeField] private GameObject misslePrefab;
+    [SerializeField] private GameObject missleExplosion;
 
     [SerializeField] private GameObject normalHitEffect;
     [SerializeField] private float laserRange = 100f;
@@ -71,7 +72,14 @@ public class ProjectileSpawner : MonoBehaviour
         Vector3 shotDirection = direction.normalized;
         GameObject dischargeBlast = Instantiate(dichargeBlastPrefab, position, Quaternion.identity);
         dischargeBlast.transform.up = shotDirection;
+        audioManager.PlayShortSound("DischargeBlast");
 
+    }
+
+    public void MissleExplosion(Vector3 position)
+    {
+        GameObject explosion = Instantiate(missleExplosion, position, Quaternion.identity);
+        Destroy(explosion, 2f);
     }
 
     public void LaserBeam(Vector3 position, Vector3 direction)
@@ -87,8 +95,18 @@ public class ProjectileSpawner : MonoBehaviour
                 float damagePerSec = laserDamage * Time.deltaTime; 
                 target.TakeDamage(damagePerSec); 
             }
+            
+            MissleScript altTarget = hit.transform.GetComponent<MissleScript>();
+            if (altTarget != null)
+            {
+                float damagePerSec = laserDamage * Time.deltaTime;
+                altTarget.TakeDamage(damagePerSec);
+            }
+            
+            
             laserRanderer.SetPosition(0, position);
             laserRanderer.SetPosition(1, hit.point);
+
         }
         else
         {

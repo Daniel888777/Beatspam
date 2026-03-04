@@ -14,6 +14,7 @@ public class PlayerMovementFinal : MonoBehaviour
     private float turnInput;       
     private Rigidbody2D rb;
     private float currentMoveSpeed;
+    private bool movementCLamped = false;
 
     void Awake()
     {
@@ -23,7 +24,10 @@ public class PlayerMovementFinal : MonoBehaviour
 
     void FixedUpdate()
     {
-      
+        if (!movementCLamped)
+        {
+            return;
+        }
         if (moveInput != Vector2.zero)
         {
             Vector2 move = moveInput * currentMoveSpeed * Time.fixedDeltaTime;
@@ -35,7 +39,18 @@ public class PlayerMovementFinal : MonoBehaviour
         {
             rb.rotation -= turnInput * turnSpeed * Time.fixedDeltaTime;
         }
+    
+        if (movementCLamped)
+        {
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, -6f, 6f);
+            pos.y = Mathf.Clamp(pos.y, -4.5f, 4.5f);
+            transform.position = pos;
+        }
+
+
     }
+
 
 
     public void OnMove(InputAction.CallbackContext context)
@@ -62,5 +77,8 @@ public class PlayerMovementFinal : MonoBehaviour
         }
     }
 
-
+    public void ClampMovement()
+    {
+        movementCLamped = true;
+    }
 }

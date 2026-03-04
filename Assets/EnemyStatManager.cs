@@ -47,7 +47,7 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
     {
         // Add any death animation or effect here
         yield return new WaitForSeconds(0.5f); // Wait for the effect to finish
-        GameStateManager.Instance.OnPlayerVictory();
+        GameStateManager.Instance.SetState(GameStates.Victory);
         turnAndCharge.NoChargeSound();
         Destroy(gameObject);
 

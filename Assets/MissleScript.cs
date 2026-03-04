@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class MissleScript : MonoBehaviour
+public class MissleScript : MonoBehaviour, IDamageable
 {
     private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private float damage = 1;
     [SerializeField] private float turnSpeed =50f;
+    [SerializeField] private float health = 1;
+    private AudioManager audiomanager;
     private bool active = false;
     [SerializeField]private float activationDelay = 2f;
     private float timeTilActive = 0;
+    [SerializeField]private float countDown = 4f;
+    private float explosionTime = 0;
     private Transform playerPosition;
+    private ProjectileSpawner projectileSpawner;
     private bool lockedOn = false;
     private Vector2 targetLockOn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,7 +23,9 @@ public class MissleScript : MonoBehaviour
     {
         timeTilActive = Time.time + activationDelay;
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, lifetime);
+        explosionTime = Time.time + countDown;
+        audiomanager = FindAnyObjectByType<AudioManager>();
+
         PlayerStatManager player = FindFirstObjectByType<PlayerStatManager>();
 
         if (player != null)
@@ -29,6 +36,16 @@ public class MissleScript : MonoBehaviour
         {
             Debug.LogWarning("PlayerStatManager not found in scene!");
         }
+
+        ProjectileSpawner spawner = FindFirstObjectByType<ProjectileSpawner>();
+        if (spawner != null)
+        {
+            projectileSpawner = spawner;
+        }
+        else
+        {
+            Debug.LogWarning("ProjectileSpawner not found in scene!");
+        }
     }
 
     private void Update()
@@ -36,6 +53,16 @@ public class MissleScript : MonoBehaviour
         if (Time.time >= timeTilActive)
         {
             active = true;
+        
+        }
+
+        if (Time.time >= explosionTime)
+        {
+            if (projectileSpawner != null && gameObject != null)
+            {
+                TriggerExplosion();
+            }
+            Destroy(gameObject);
         }
     }
 
@@ -78,6 +105,12 @@ public class MissleScript : MonoBehaviour
 
 
             }
+            else if (playerPosition == null)
+            {
+                Vector2 dir = transform.up;
+                Vector2 nextPos = rb.position + (Vector2)(dir * speed * Time.fixedDeltaTime);
+                rb.MovePosition(nextPos);
+            }
         }
     }
 
@@ -85,13 +118,39 @@ public class MissleScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            IDamageable damageable = collision.GetComponent<IDamageable>();
-            if (damageable != null)
+            //IDamageable damageable = collision.GetComponent<IDamageable>();
+            //if (damageable != null)
+            //{
+            //    damageable.TakeDamage(damage);
+            //    damageable.HitEffect(transform.position);
+            //}
+            if (projectileSpawner != null && gameObject !=null)
             {
-                damageable.TakeDamage(damage);
-                damageable.HitEffect(transform.position);
+                TriggerExplosion();
             }
             Destroy(gameObject);
         }
     }
+    public void TakeDamage(float damage) 
+    { 
+        health -= damage;
+        if (health <= 0)
+        {
+            if (projectileSpawner != null && gameObject != null)
+            {
+                TriggerExplosion();
+            }
+            Destroy(gameObject);
+        }
+
+    }
+
+    public void HitEffect(Vector3 position) { }
+    public void TriggerExplosion() 
+    {
+        audiomanager.PlaySound("RocketExplosion");
+        projectileSpawner.MissleExplosion(transform.position);
+    
+    }
+
 }

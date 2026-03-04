@@ -24,6 +24,7 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
         projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
         healthBar = FindFirstObjectByType<HealthBar>();
         beatBar = FindFirstObjectByType<BeatBar>();
+        audioManager = FindFirstObjectByType<AudioManager>();
         score = 0;
     }
 
@@ -49,8 +50,7 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     {
         score += 5;
         beatBar.IncreaseBeatEnergy();
-        
-
+        ScoreManager.Instance.AddScore(5);
         scoreText.text = "Score: " + score;
 
     }
@@ -58,9 +58,19 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
 
-        if (health <= 10 && shieldHasEnergy)
+
+        if (health > 10 &&shieldHasEnergy)
+        {
+            audioManager.PlayShortSound("PlayerHit");
+        }
+        else if (health <= 10 && shieldHasEnergy)
         {
             shieldHasEnergy = false;
+            audioManager.PlayShortSound("ShieldBreak");
+        }
+        else
+        {
+            audioManager.PlayShortSound("PlayerHitNoShield");
         }
 
         if (shieldHasEnergy)
@@ -74,7 +84,8 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
 
         healthBar.setCurrentHealth(health);
         score -= 1000;
-       
+        ScoreManager.Instance.AddScore(-1000);
+
         if (shieldHasEnergy)
         {
             shieldTimer = Time.time + shieldDuration;
@@ -94,7 +105,7 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
 
     private void Die()
     {
-
+        GameStateManager.Instance.SetState(GameStates.Death);
         projectileSpawner.StopLaserBeam();
         Destroy(gameObject);
     }

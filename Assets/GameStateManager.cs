@@ -46,6 +46,10 @@ public class GameStateManager : MonoBehaviour
             case GameStates.Victory:
                 StartCoroutine(LoadNextScene());
                 break;
+            case GameStates.Death:
+                ScoreManager.Instance.TransmitTotalScore();
+                StartCoroutine(LoadDeathScene());
+                break;
         }
     }
 
@@ -65,10 +69,7 @@ public class GameStateManager : MonoBehaviour
         SetState(GameStates.Combat);
     }
 
-    public void OnPlayerVictory()
-    {
-        SetState(GameStates.Victory);
-    }
+
 
     //--------------------------------//
     IEnumerator LoadNextScene()
@@ -76,4 +77,11 @@ public class GameStateManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(nextSceneName);
     }
+
+    IEnumerator LoadDeathScene()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("DeathScene");
+    }
+
 }
