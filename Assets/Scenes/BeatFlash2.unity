@@ -154,7 +154,8 @@ MonoBehaviour:
   countDownTimeline: {fileID: 692022669}
   audioManager: {fileID: 861104816}
   dialogueManager: {fileID: 810376732}
-  nextSceneName: BeatFlash3
+  nextSceneName: EndScreenScene
+  lastLevel: 1
 --- !u!4 &100806721
 Transform:
   m_ObjectHideFlags: 0
@@ -845,6 +846,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: PlayerExplosion
+    clip: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
+    volume: 0.828
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: EnemyCharging
     clip: {fileID: 8300000, guid: 6cf9c85b5a3b88c468b21b9d21250adf, type: 3}
     volume: 0.405
@@ -859,6 +866,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: RocketExplosion
     clip: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+    volume: 0.828
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EnemyExplosion
+    clip: {fileID: 8300000, guid: 1eb7cbaf61d23a64bbd36c0a38b5cb0c, type: 3}
     volume: 0.828
     pitch: 1
     loop: 0
@@ -944,8 +957,10 @@ MonoBehaviour:
   misslePrefab: {fileID: 2596958319063558647, guid: 57cf333a8a0f13044849768d460f2b10, type: 3}
   missleExplosion: {fileID: 5548159837504379078, guid: d69c245b299c5ab44a5c9b2f9bd2734a, type: 3}
   normalHitEffect: {fileID: 100002, guid: cafecd3fc3b761c45bb1553f35cf5c96, type: 3}
+  enemyBoom: {fileID: 6120340749740991313, guid: bf1fec1c129ef8542b155d92b04c18d6, type: 3}
+  playerBoom: {fileID: 3976901942445669131, guid: 66a91367f830b0b4f8a2b2efedd259a0, type: 3}
   laserRange: 1000
-  laserDamage: 100
+  laserDamage: 10
   laserRanderer: {fileID: 1063430324}
   enemyTypeA: 0
   enemyTypeB: 1
@@ -1080,6 +1095,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 418768001}
     m_Modifications:
+    - target: {fileID: 1713156053716266817, guid: c8a9806d92067ac47be8b13e5b800d39, type: 3}
+      propertyPath: m_Value
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713156053716266817, guid: c8a9806d92067ac47be8b13e5b800d39, type: 3}
+      propertyPath: m_MaxValue
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 4202320638284685089, guid: c8a9806d92067ac47be8b13e5b800d39, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2503,6 +2526,10 @@ PrefabInstance:
       propertyPath: gun
       value: 
       objectReference: {fileID: 405344658}
+    - target: {fileID: 3731782498478073972, guid: dffc61c049ede1b4babd3a02b0617dd4, type: 3}
+      propertyPath: maxHealth
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 7140553415836659252, guid: dffc61c049ede1b4babd3a02b0617dd4, type: 3}
       propertyPath: m_Name
       value: EnemyTypeB

@@ -23,6 +23,7 @@ public class HighScorePoster : MonoBehaviour
            return; 
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void AddScore(ScoreData score)

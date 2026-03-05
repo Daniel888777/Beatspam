@@ -26,7 +26,13 @@ public class ScoreManager : MonoBehaviour
 
     public void TransmitTotalScore() 
     { 
-        HighScorePoster.Instance.AddScore(new ScoreData { playerName = "Player", score = CurrentScore });
+        //HighScorePoster.Instance.AddScore(new ScoreData { playerName = "Player", score = CurrentScore });
+        ScoreData data = new ScoreData
+        {
+            playerName = PlayerNameManager.PlayerName, score = CurrentScore
+        };
+
+        HighScorePoster.Instance.AddScore(data);
     }
 
     public void AddScore(int amount)

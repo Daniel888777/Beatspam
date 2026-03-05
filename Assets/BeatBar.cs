@@ -20,7 +20,7 @@ public class BeatBar : MonoBehaviour
     {
         if (!isFull)
         {
-            beatBarSlider.value += 100f;
+            beatBarSlider.value += 50f;
         }
     }
 
@@ -28,7 +28,7 @@ public class BeatBar : MonoBehaviour
     {
         if (beatBarSlider.value > 0f)
         {
-            beatBarSlider.value -= (10000f *Time.deltaTime);
+            beatBarSlider.value -= (5000f *Time.deltaTime);
         }
     }
 

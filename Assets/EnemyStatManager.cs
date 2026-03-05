@@ -6,12 +6,16 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
     private float health;
     private EnemyHealthBar healthBar;
     private TurnAndCharge turnAndCharge;
+    private ProjectileSpawner projectileSpawner;
+    private AudioManager audioManager;  
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
         turnAndCharge = GetComponent<TurnAndCharge>();
         healthBar = FindFirstObjectByType<EnemyHealthBar>();
+        projectileSpawner = FindFirstObjectByType<ProjectileSpawner>();
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     private void Start()
@@ -49,7 +53,10 @@ public class EnemyStatManager : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(0.5f); // Wait for the effect to finish
         GameStateManager.Instance.SetState(GameStates.Victory);
         turnAndCharge.NoChargeSound();
+        audioManager.PlayShortSound("EnemyExplosion");
+        projectileSpawner.EnemyExplosion(transform.position);
         Destroy(gameObject);
+        
 
     }
 }

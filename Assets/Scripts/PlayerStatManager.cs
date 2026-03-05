@@ -107,6 +107,8 @@ public class PlayerStatManager : MonoBehaviour, IDamageable
     {
         GameStateManager.Instance.SetState(GameStates.Death);
         projectileSpawner.StopLaserBeam();
+        projectileSpawner.PlayerExplosion(transform.position);
+        audioManager.PlayShortSound("PlayerExplosion");
         Destroy(gameObject);
     }
 }

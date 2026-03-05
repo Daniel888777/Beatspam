@@ -155,6 +155,7 @@ MonoBehaviour:
   audioManager: {fileID: 861104816}
   dialogueManager: {fileID: 810376732}
   nextSceneName: BeatFlash2
+  lastLevel: 0
 --- !u!4 &100806721
 Transform:
   m_ObjectHideFlags: 0
@@ -823,7 +824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Beat
-    clip: {fileID: 8300000, guid: f4399692b77a4a34f97933072a86f6f9, type: 3}
+    clip: {fileID: 8300000, guid: ac9b7d69ef7e1fe4c9f9bb0c39bec142, type: 3}
     volume: 1
     pitch: 1
     loop: 1
@@ -846,6 +847,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: PlayerExplosion
+    clip: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: EnemyCharging
     clip: {fileID: 8300000, guid: e96a84f66ed7d4eaabbfb352f63add7e, type: 3}
     volume: 0.405
@@ -860,6 +867,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: LaserBeam
     clip: {fileID: 8300000, guid: a9e3fee688cf000499bded40dd54ff48, type: 3}
+    volume: 0.405
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: EnemyExplosion
+    clip: {fileID: 8300000, guid: 1eb7cbaf61d23a64bbd36c0a38b5cb0c, type: 3}
     volume: 0.405
     pitch: 1
     loop: 1
@@ -1182,10 +1195,12 @@ MonoBehaviour:
   projectilePrefabB: {fileID: 764997529420015180, guid: e2c7b205c03f2e745b17850ab34c41a6, type: 3}
   dichargeBlastPrefab: {fileID: 6483480233611730398, guid: 4032fffcfecd77e469935970e8298541, type: 3}
   misslePrefab: {fileID: 2596958319063558647, guid: 57cf333a8a0f13044849768d460f2b10, type: 3}
-  missleExplosion: {fileID: 0}
+  missleExplosion: {fileID: 5548159837504379078, guid: d69c245b299c5ab44a5c9b2f9bd2734a, type: 3}
   normalHitEffect: {fileID: 100002, guid: cafecd3fc3b761c45bb1553f35cf5c96, type: 3}
+  enemyBoom: {fileID: 6120340749740991313, guid: bf1fec1c129ef8542b155d92b04c18d6, type: 3}
+  playerBoom: {fileID: 3976901942445669131, guid: 66a91367f830b0b4f8a2b2efedd259a0, type: 3}
   laserRange: 1000
-  laserDamage: 15
+  laserDamage: 10
   laserRanderer: {fileID: 1063430324}
   enemyTypeA: 1
   enemyTypeB: 0
@@ -1407,6 +1422,10 @@ PrefabInstance:
     - target: {fileID: 3304958351192451083, guid: b24422de5ec59f94f8fabc2627bebc53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104208001126576124, guid: b24422de5ec59f94f8fabc2627bebc53, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2388,7 +2407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166848175194040451, guid: fe78cf036de0358408b6465d2e911c59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -369
+      value: -366
       objectReference: {fileID: 0}
     - target: {fileID: 6166848175194040451, guid: fe78cf036de0358408b6465d2e911c59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

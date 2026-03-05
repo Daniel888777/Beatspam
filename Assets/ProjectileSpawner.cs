@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
+    [Header("Projectile Prefabs and Explsions")]
     [SerializeField] private GameObject projectilePrefabA;
     [SerializeField] private GameObject projectilePrefabB;
     [SerializeField] private GameObject dichargeBlastPrefab;
     [SerializeField] private GameObject misslePrefab;
     [SerializeField] private GameObject missleExplosion;
-
     [SerializeField] private GameObject normalHitEffect;
+    [SerializeField] private GameObject enemyBoom;
+    [SerializeField] private GameObject playerBoom;
+    [Header("Laser Settings")]
     [SerializeField] private float laserRange = 100f;
     [SerializeField] private float laserDamage = 100f;
     [SerializeField] private LineRenderer laserRanderer;
@@ -80,6 +83,18 @@ public class ProjectileSpawner : MonoBehaviour
     {
         GameObject explosion = Instantiate(missleExplosion, position, Quaternion.identity);
         Destroy(explosion, 2f);
+    }
+
+    public void EnemyExplosion(Vector3 position)
+    {
+        GameObject explosion = Instantiate(enemyBoom, position, Quaternion.identity);
+        Destroy(explosion, 2f);
+    }
+
+    public void PlayerExplosion(Vector3 position)
+    {
+        GameObject explosion = Instantiate(playerBoom, position, Quaternion.identity);
+        Destroy(explosion, 1.5f);
     }
 
     public void LaserBeam(Vector3 position, Vector3 direction)

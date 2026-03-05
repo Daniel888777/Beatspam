@@ -12,6 +12,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Dialogue dialogueManager;
     [SerializeField] private string nextSceneName;
+    [SerializeField] private bool lastLevel;
     public static GameStateManager Instance { get; private set; }
 
     void Awake()
@@ -29,21 +30,25 @@ public class GameStateManager : MonoBehaviour
         currentState = newState;
 
         switch (currentState)
-        {            
+        {
             case GameStates.EntranceSequence:
                 entranceTimeline.Play();
                 break;
-            
+
             case GameStates.IntroDialogue:
                 dialogueManager.Activate();
                 break;
-            
+
             case GameStates.Combat:
                 audioManager.Play("Beat");
                 dialogueManager.Deactivate();
                 break;
 
             case GameStates.Victory:
+                if (lastLevel)
+                {
+                ScoreManager.Instance.TransmitTotalScore();
+                } 
                 StartCoroutine(LoadNextScene());
                 break;
             case GameStates.Death:
@@ -81,7 +86,7 @@ public class GameStateManager : MonoBehaviour
     IEnumerator LoadDeathScene()
     {
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene("DeathScene");
+        SceneManager.LoadScene("EndScreenScene");
     }
 
 }
